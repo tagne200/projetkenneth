@@ -1,27 +1,45 @@
+AGE_MINIMUM = 1
+AGE_MAXIMUM = 130
+
+
+def lire_age(saisie):
+    """Convertit une saisie en age, ou retourne None si elle est invalide."""
+    try:
+        age = int(saisie)
+    except ValueError:
+        return None
+    if AGE_MINIMUM <= age <= AGE_MAXIMUM:
+        return age
+    return None
+
+
+def demander_nom():
+    nom = ""
+    while nom == "":
+        nom = input("quel est ton nom ? ").strip()
+    return nom
+
+
 def demander_age():
-    age = 0
-    while age == 0:
-        age_str = input("quel est votre age ? ")
-
-        try:
-            age= int(age_str) 
-        except:
-            print("ERREUR: entre les chiffres mon frere")  
-    return age
+    while True:
+        age = lire_age(input("quel est votre age ? "))
+        if age is not None:
+            return age
+        print(f"ERREUR: entre un nombre entre {AGE_MINIMUM} et {AGE_MAXIMUM}")
 
 
-nom = ""
-while nom == "":
-    nom = input("quel est ton nom ? ")
-    
-
-age = demander_age()
-print("je mappelle " + nom + "," , "vous avez " + str(age) + "ans.")
-print("l'annee prochaine tu aura " + str(age+1) + " ans.")
+def creer_message(nom, age):
+    return (
+        f"je m'appelle {nom}, vous avez {age} ans.\n"
+        f"l'annee prochaine tu auras {age + 1} ans."
+    )
 
 
-# password = ""
-# while not password == "toto":
-#     password= input("  saisi le mot de passe")
+def main():
+    nom = demander_nom()
+    age = demander_age()
+    print(creer_message(nom, age))
 
-# print("bienvenue toto")
+
+if __name__ == "__main__":
+    main()
